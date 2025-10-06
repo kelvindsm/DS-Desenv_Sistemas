@@ -35,3 +35,29 @@ def salvar_incluir():
     lst_setores = dao_setor.read_by_filters([('sts_setor', '=', 'A')])
 
     return render_template('adm/serv/incluir.html', msg=msg, css_msg=css_msg, lst_setores=lst_setores)
+
+
+@bp_serv.route('/consultar')  # /adm/serv/consultar
+def consultar():
+    dao_setor = SetorDAO()
+    setores = dao_setor.read_by_filters([('sts_setor', '=', 'A')])
+    return render_template('adm/serv/consultar.html', servicos=[], setores=setores, filtro_usado='')
+
+
+@bp_serv.route('/roda_consultar', methods=['POST'])  # /adm/serv/rodar_consultar
+def roda_consultar():
+    nme_servico = request.form['nme_servico']
+    cod_setor = request.form['cod_setor']
+    filtros = []
+    if nme_servico:
+        filtros.append(('nme_servico', 'ilike', f'%{nme_servico}%'))
+    if cod_setor:
+        filtros.append(('cod_setor', '=', int(cod_setor)))
+    filtro_usado = f'Nome do Serviço: {nme_servico or "Não informado"} / Código do Setor: {cod_setor or "Todos"}'
+
+    dao = ServicoDAO()
+    servicos = dao.read_by_filters(filtros)
+
+    dao_setor = SetorDAO()
+    setores = dao_setor.read_by_filters([('sts_setor', '=', 'A')])
+    return render_template('adm/serv/consultar.html', servicos=servicos, setores=setores, filtro_usado=filtro_usado)
