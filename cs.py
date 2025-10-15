@@ -3,6 +3,7 @@ from urls.adm.setor import bp_setor
 from urls.adm.servico import bp_serv
 from urls.adm.empregado import bp_emp
 from urls.adm.prestador import bp_prest
+from urls.adm.local import bp_local
 
 app = Flask(__name__)
 
@@ -10,6 +11,7 @@ app.register_blueprint(bp_setor)
 app.register_blueprint(bp_serv)
 app.register_blueprint(bp_emp)
 app.register_blueprint(bp_prest)
+app.register_blueprint(bp_local)
 @app.route('/')
 def cs():
     return render_template('index.html')
