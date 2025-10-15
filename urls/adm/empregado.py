@@ -1,5 +1,7 @@
 from flask import Blueprint, render_template, request
+
 from database.Empregado_dao import EmpregadoDAO
+from database.Local_dao import LocalDAO
 
 bp_emp = Blueprint('emp', __name__, url_prefix='/adm/emp')
 
@@ -11,15 +13,31 @@ def incluir():
 
 @bp_emp.route('/consultar')  # /adm/emp/consultar
 def consultar():
-    return render_template('adm/emp/consultar.html', empregados=[], filtro_usado='')
+    dao_local = LocalDAO()
+    locais = dao_local.read_by_filters([('sts_local', '=', 'A')])
+    return render_template('adm/emp/consultar.html', empregados=[], locais=locais, filtro_usado='')
 
 @bp_emp.route('/roda_consultar', methods=['POST'])  # /adm/emp/roda_consultar
 def roda_consultar():
     nme_empregado = request.form['nme_empregado']
-    filtro_usado = f'Nome do empregado: {nme_empregado}'
+    cod_local = request.form['cod_local']
+    filtros = []
+
+    if nme_empregado:
+        filtros.append(('nme_empregado', 'ilike', f'%{nme_empregado}%'))
+    if cod_local:
+        filtros.append(('cod_local', '=', int(cod_local)))
+    filtro_usado = f'Nome do Empregado: {nme_empregado or "Não informado"} / Código do Setor: {cod_local or "Todos"}'
+
+    # filtro_usado = f'Nome do empregado: {nme_empregado}'
     dao = EmpregadoDAO()
     empregados = dao.read_by_like('nme_empregado', nme_empregado)
-    return render_template('adm/emp/consultar.html', empregados=empregados, filtro_usado=filtro_usado)
+
+    dao_local = LocalDAO()
+    locais = dao_local.read_by_filters([('sts_local', '=', 'A')])
+
+    return render_template('adm/emp/consultar.html', empregados=empregados, locais=locais, filtro_usado=filtro_usado)
+
 
 """
 @bp_emp.route('/salvar_incluir', methods=['POST'])  # /adm/setor/salvar_incluir

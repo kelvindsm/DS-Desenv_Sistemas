@@ -9,15 +9,15 @@
             <label for="nme_empregado">Nome do Empregado:</label>
             <input type="text" id="nme_empregado" name="nme_empregado" placeholder="Digite o nome do empregado para filtrar">
         </div>
-        <!--<div class="form-group">
-            <label for="cod_setor">Setor:</label>
-            <select id="cod_setor" name="cod_setor">
-                <option value="">Todos os Setores</option>
-                {% for setor in setores %}
-                <option value="{{ setor.idt_setor }}">{{ setor.sgl_setor }} - {{ setor.nme_setor }}</option>
+        <div class="form-group">
+            <label for="cod_local">Local:</label>
+            <select id="cod_local" name="cod_local">
+                <option value="">Todos os locais</option>
+                {% for local in locais %}
+                <option value="{{ local.idt_local }}">{{ local.nme_local }}</option>
                 {% endfor %}
             </select>
-        </div> -->
+        </div>
         <button type="submit" class="btn btn-primary">Buscar</button>
     </form>
 </section>
@@ -34,6 +34,7 @@
                 <th>Status</th>
                 <th>Telefone</th>
                 <th>Ramal</th>
+                <th>Local</th>
             </tr>
             </thead>
             <tbody>
@@ -46,6 +47,13 @@
                 <td>{{ "Ativo" if empregado.sts_empregado == 'A' else "Inativo" }}</td>
                 <td>{{ empregado.tel_empregado }}</td>
                 <td>{{ empregado.rml_empregado }}</td>
+                <td>
+                    {% if empregado.tb_local %}
+                        {{ empregado.tb_local.nme_local }}
+                    {% else %}
+                        Sem local
+                    {% endif %}
+                </td>
             </tr>
             {% else %}
             <tr>

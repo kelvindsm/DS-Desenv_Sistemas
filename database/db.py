@@ -5,7 +5,7 @@ from sqlalchemy.ext.automap import automap_base
 
 class Database:
     USER = 'postgres'
-    PASSWORD = 'ceub123456'
+    PASSWORD = 'admin'
     HOST = 'localhost'
     PORT = 5432
     DATABASE = 'postgres'
