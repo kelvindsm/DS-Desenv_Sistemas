@@ -23,7 +23,6 @@
                 <th>ID</th>
                 <th>Nome</th>
                 <th>Status</th>
-                <th>Setor</th>
             </tr>
             </thead>
             <tbody>
@@ -32,7 +31,6 @@
                 <td>{{ local.idt_local }}</td>
                 <td>{{ local.nme_local }}</td>
                 <td>{{ "Ativo" if local.sts_local == 'A' else "Inativo" }}</td>
-                <td>{{ local.tt_setor.cod_setor }}</td>
             </tr>
             {% else %}
             <tr>

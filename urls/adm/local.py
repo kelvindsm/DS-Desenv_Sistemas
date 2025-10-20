@@ -11,9 +11,7 @@ def incluir():
 
 @bp_local.route('/consultar')  # /adm/emp/consultar
 def consultar():
-    dao_local = LocalDAO()
-    locais = dao_local.read_by_filters([('sts_local', '=', 'A')])
-    return render_template('adm/local/consultar.html', empregados=[], locais=locais, filtro_usado='')
+    return render_template('adm/local/consultar.html', locais=[], filtro_usado='')
 
 @bp_local.route('/roda_consultar', methods=['POST'])  # /adm/emp/roda_consultar
 def roda_consultar():
@@ -22,12 +20,11 @@ def roda_consultar():
 
     if nme_local:
         filtros.append(('nme_local', 'ilike', f'%{nme_local}%'))
-    # if nme_local:
-    #    filtros.append(('cod_local', '=', int(nme_local)))
-    filtro_usado = f'Nome do local: {nme_local or "Não informado"} / Código do Setor: {nme_local or "Todos"}'
 
-    dao_local = LocalDAO()
-    locais = dao_local.read_by_like('nme_local', nme_local)
+    filtro_usado = f'Nome do local: {nme_local or "Não informado"}'
+
+    dao = LocalDAO()
+    locais = dao.read_by_like('nme_local', nme_local)
 
     return render_template('adm/local/consultar.html', locais=locais, filtro_usado=filtro_usado)
 
