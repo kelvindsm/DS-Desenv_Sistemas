@@ -4,6 +4,7 @@ from urls.adm.servico import bp_serv
 from urls.adm.empregado import bp_emp
 from urls.adm.prestador import bp_prest
 from urls.adm.local import bp_local
+from urls.adm.tipo_ocorrencia import bp_tpOcorrencias
 
 app = Flask(__name__)
 
@@ -12,6 +13,7 @@ app.register_blueprint(bp_serv)
 app.register_blueprint(bp_emp)
 app.register_blueprint(bp_prest)
 app.register_blueprint(bp_local)
+app.register_blueprint(bp_tpOcorrencias)
 @app.route('/')
 def cs():
     return render_template('index.html')
