@@ -5,10 +5,10 @@ from sqlalchemy.ext.automap import automap_base
 
 class Database:
     USER = 'postgres'
-    PASSWORD = 'admin'
+    PASSWORD = 'ceub123456'
     HOST = 'localhost'
     PORT = 5432
-    DATABASE = 'postgres'
+    DATABASE = 'db_cs'
     SCHEMA_DEFAULT = 'cs'
 
     DB_URL = f"postgresql+psycopg://{USER}:{PASSWORD}@{HOST}:{PORT}/{DATABASE}?options=-csearch_path%3D{SCHEMA_DEFAULT}"

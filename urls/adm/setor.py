@@ -66,3 +66,28 @@ def excluir(idt):
         css_msg = "erro"
     setor = dao.read_by_idt(idt)
     return render_template('adm/setor/atualizar.html', msg=msg, css_msg=css_msg, setores=[], filtro_usado='')
+
+
+@bp_setor.route('/alterar/<int:idt>')  # /adm/setor/alterar/número
+def alterar(idt):
+    dao = SetorDAO()
+    setor = dao.read_by_idt(idt)
+    return render_template('adm/setor/alterar.html', msg="", css_msg="", setor=setor)
+
+
+@bp_setor.route('/salva_alterar', methods=['POST'])  # /adm/setor/alterar/número
+def salva_alterar():
+    dao = SetorDAO()
+    setor = dao.read_by_idt(int(request.form['idt_setor']))
+    setor.sgl_setor = request.form['sgl_setor']
+    setor.nme_setor = request.form['nme_setor']
+    setor.eml_setor = request.form['eml_setor']
+    setor.sts_setor = request.form['sts_setor']
+    if dao.update(setor):
+        msg = 'Setor alterado com sucesso!'
+        css_msg = "sucesso"
+    else:
+        msg = 'Falha ao tentar alterar setor!'
+        css_msg = "erro"
+
+    return render_template('adm/setor/alterar.html', msg=msg, css_msg=css_msg, setor=setor)
