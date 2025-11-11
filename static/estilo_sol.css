@@ -1,0 +1,259 @@
+/* Reset básico e tipografia (Baseado em estilo_adm.css) */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    font-family: sans-serif;
+    line-height: 1.6;
+    /* Fundo mais claro, diferente do #f4f7f9 do admin [2] */
+    background-color: #f0f8ff;
+    color: #333;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* Estilos do cabeçalho (header) - Tema TEAL */
+header {
+    /* Cor principal para Solicitante: Teal Escuro */
+    background-color: #008080;
+    color: #fff;
+    padding: 20px;
+}
+
+
+.header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.service-title {
+    font-size: 1.8em;
+    font-weight: 700;
+}
+
+
+.user-profile a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 8px 12px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+
+.user-profile a:hover {
+    /* Hover do Solicitante (mais transparente que o do Admin) */
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+
+/* Estilos do conteúdo principal (main) */
+main {
+    flex: 1;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 20px auto;
+    width: 100%;
+}
+
+
+/* Estilos do rodapé (footer) */
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+}
+
+
+footer nav a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 15px;
+    transition: color 0.3s ease;
+}
+
+
+footer nav a:hover {
+    /* Cor de destaque diferente do lightblue do admin [7] */
+    border: 1px solid #7fffd4;
+    border-radius: 20px;
+    padding: 10px;
+    color: #7fffd4;
+}
+
+
+footer p {
+    margin-top: 10px;
+    font-size: 0.9em;
+    color: #ccc;
+}
+
+
+/* Estilos específicos do formulário (Formulário de Abertura OS) */
+.form-section {
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra um pouco mais forte que a do admin (0.05) [3] */
+}
+
+
+h2 {
+    /* Título principal na cor Teal */
+    color: #008080;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+
+label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+
+input, select, textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc; /* Cor da borda ligeiramente mais clara que o gray do admin [3] */
+    border-radius: 10px;
+    font-size: 16px;
+    transition: border-color 0.4s;
+}
+
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    /* Foco na cor Teal */
+    border: 2px solid #008080;
+}
+
+
+/* Botões */
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.6s, transform 0.4s;
+    margin-right: 10px;
+}
+
+
+.btn-primary {
+    /* Botão primário Teal (Diferente do #1e3a8a do admin [4]) */
+    background-color: #008080;
+    color: #fff;
+}
+
+
+.btn-primary:hover {
+    /* Teal mais escuro no hover */
+    background-color: #006666;
+    transform: translateY(-2px);
+}
+
+
+.btn-secondary {
+    background-color: #e5e7eb;
+    color: #4b5563;
+}
+
+
+.btn-secondary:hover {
+    background-color: #d1d5db;
+    transform: translateY(-2px);
+}
+
+
+.mensagem-retorno {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 6px;
+    font-weight: 600;
+    text-align: center;
+    border: 1px solid transparent;
+}
+
+
+.sucesso {
+    background-color: #d4edda;
+    color: #155724;
+    border-color: green;
+}
+
+
+.erro {
+    background-color: #f8d7da;
+    color: #721c24;
+    border-color: red;
+}
+
+
+.radio-group {
+    display: flex;
+    gap: 20px;
+}
+
+
+.radio-group label {
+    display: flex;
+    align-items: center;
+    font-weight: 400;
+}
+
+
+.radio-group input[type="radio"] {
+    width: auto;
+    margin-right: 5px;
+}
+/* Estilos de Tabela (para futura consulta de OS) */
+.table-container {
+    overflow-x: auto;
+}
+
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+
+.data-table th, .data-table td {
+    padding: 12px;
+    /* Linhas de tabela na cor do tema (diferente do lightblue do admin [10]) */
+    border-bottom: 1px solid #b3e0e0;
+    text-align: left;
+}
+
+
+.data-table th {
+    background-color: #e0ffff; /* Fundo mais claro para cabeçalhos (diferente do #f9fafb do admin [10]) */
+    font-weight: 700;
+}
+
+
+.data-table tbody tr:hover {
+    /* Hover na cor do tema (diferente do lightskyblue do admin [10]) */
+    background-color: #ccf2f4;
+}

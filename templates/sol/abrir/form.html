@@ -1,0 +1,135 @@
+{% extends "sol/base_sol.html" %}
+
+
+{% block content %}
+
+
+<section class="form-section">
+
+
+   <h2>Abrir Nova Solicitação de Serviço</h2>
+
+
+   <!-- A rota POST será algo como /sol/abrir_os/salvar_os.
+   Nota: Se houver upload de arquivo, o enctype="multipart/form-data" é necessário. -->
+   <form id="osForm" method="POST" action="/sol/abrir/comprovante" enctype="multipart/form-data">
+
+
+       <!-- Campo para Selecionar o Empregado Solicitante (Em versão de produção deve pegar o empregado logado) -->
+       <div class="form-group">
+           <label for="cod_local">Empregado Solicitante (Obrigatório):</label>
+           <select id="cod_empregado" name="cod_empregado" required>
+               <option value="">Selecione o empregado...</option>
+               {% for empregado in lst_empregados %}
+               <option value="{{ empregado.idt_empregado }}">
+                   {{ empregado.tb_local.nme_local }} - {{ empregado.nme_empregado }}
+               </option>
+               {% endfor %}
+           </select>
+           <small>Informe onde a equipe de serviço deverá atuar.</small>
+       </div>
+
+
+
+
+       <!-- Campo para Selecionar o Serviço (cod_servico) -->
+       <div class="form-group">
+           <label for="cod_servico">Serviço Desejado (Obrigatório):</label>
+           <select id="cod_servico" name="cod_servico" required>
+               <option value="">Selecione um serviço...</option>
+               {% for servico in lst_servicos %}
+               <option value="{{ servico.idt_servico }}" txt-modelo="{{ servico.txt_modelo_servico }}">
+                   {{ servico.tt_setor.sgl_setor }} - {{ servico.nme_servico }} - R$ {{ servico.vlr_servico }}
+               </option>
+               {% endfor %}
+           </select>
+           <small>Escolha o serviço relacionado à sua solicitação (Ex: Suporte Técnico, Reparo Elétrico).</small>
+       </div>
+
+
+       <!-- Campo para Selecionar o Local (cod_local) -->
+       <div class="form-group">
+           <label for="cod_local">Local onde o Serviço é Requerido (Obrigatório):</label>
+           <select id="cod_local" name="cod_local" required>
+               <option value="">Selecione o local...</option>
+               <!-- Assume-se que a view passou a lista de locais ativos (lst_locais) -->
+               {% for local in lst_locais %}
+               <option value="{{ local.idt_local }}">
+                   {{ local.nme_local }}
+               </option>
+               {% endfor %}
+           </select>
+           <small>Informe onde a equipe de serviço deverá atuar.</small>
+       </div>
+
+
+       <!-- Detalhes da Solicitação (dsc_ordem_servico) -->
+       <div class="form-group">
+           <label for="dsc_ordem_servico">Detalhes da Solicitação (Obrigatório - Máx. 500 caracteres):</label>
+           <textarea id="dsc_ordem_servico" name="dsc_ordem_servico" rows="6" maxlength="500" required
+                     placeholder="Descreva o problema com o máximo de detalhes possível: sintomas, local exato (sala/andar), e quando começou."></textarea>
+       </div>
+
+
+       <!-- Número de Patrimônio (num_patrimonio) - Opcional -->
+       <div class="form-group">
+           <label for="num_patrimonio">Número de Patrimônio (Opcional):</label>
+           <input type="text" id="num_patrimonio" name="num_patrimonio" maxlength="20"
+                  placeholder="Ex: 123456 (Se relacionado a um ativo específico)">
+       </div>
+
+
+       <!-- Anexo de Arquivo (arq_ordem_servico) - Opcional -->
+       <div class="form-group">
+           <label for="arq_ordem_servico">Anexo (Imagem ou Documento - Opcional):</label>
+           <input type="file" id="arq_ordem_servico" name="arq_ordem_servico" accept=".jpg, .png, .pdf, .docx, .xlsx, .pptx">
+           <small>Adicione uma imagem ou documento que ajude a identificar o problema.</small>
+       </div>
+
+
+       <button type="submit" class="btn btn-primary">Abrir Solicitação</button>
+       <button type="reset" class="btn btn-secondary">Limpar Formulário</button>
+
+
+   </form>
+
+
+</section>
+
+
+{% endblock %}
+
+
+
+
+{% block script %}
+       document.addEventListener('DOMContentLoaded', function() {
+       const selectServico = document.getElementById('cod_servico');
+       const textareaDetalhes = document.getElementById('dsc_ordem_servico');
+
+
+       if (selectServico && textareaDetalhes) {
+
+
+           // Adiciona um listener para o evento de mudança (quando o usuário escolhe uma nova opção)
+           selectServico.addEventListener('change', function() {
+               // Obtém a opção atualmente selecionada no dropdown
+               const selectedOption = selectServico.options[selectServico.selectedIndex];
+
+
+               // Extrai o valor do atributo de dado 'txt-modelo'
+               // Este atributo contém o txt_modelo_servico
+               const modeloTexto = selectedOption.getAttribute('txt-modelo');
+
+
+               // Verifica se o modeloTexto existe e preenche o textarea
+               if (modeloTexto) {
+                   textareaDetalhes.value = modeloTexto;
+               } else {
+                   // Limpa o campo se for selecionada a opção 'Selecione um serviço...' (que não tem data-modelo)
+                   textareaDetalhes.value = '';
+               }
+           });
+       }
+   });
+{% endblock %}

@@ -1,19 +1,27 @@
+import os
+
 from flask import Flask, render_template
 from urls.adm.setor import bp_setor
-from urls.adm.servico import bp_serv
-from urls.adm.empregado import bp_emp
-from urls.adm.prestador import bp_prest
-from urls.adm.local import bp_local
-from urls.adm.tipo_ocorrencia import bp_tpOcorrencias
+from urls.adm.servicos import bp_servicos
+from urls.adm.Empregado import bp_empregados
+from urls.adm.Prestador import bp_prestadores
+from urls.adm.Local import bp_locais
+from urls.adm.Tipo_ocorrencia import bp_tpOcorrencias
+
+from urls.sol.abrir import bp_abrir
 
 app = Flask(__name__)
 
+app.config['UPLOAD_FOLDER'] = os.path.join(app.root_path, 'static',  'uploads')
+
 app.register_blueprint(bp_setor)
-app.register_blueprint(bp_serv)
-app.register_blueprint(bp_emp)
-app.register_blueprint(bp_prest)
-app.register_blueprint(bp_local)
+app.register_blueprint(bp_servicos)
+app.register_blueprint(bp_empregados)
+app.register_blueprint(bp_prestadores)
+app.register_blueprint(bp_locais)
 app.register_blueprint(bp_tpOcorrencias)
+app.register_blueprint(bp_abrir)
+
 @app.route('/')
 def cs():
     return render_template('index.html')

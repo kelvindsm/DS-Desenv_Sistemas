@@ -1,0 +1,117 @@
+{% extends "sol/base_sol.html" %}
+
+
+{% block content %}
+
+
+<section class="form-section">
+
+
+   <h2>Comprovante de Abertura de Solicitação</h2>
+
+
+   <!-- Feedback de problemas -->
+   {% if osr.idt_ordem_servico > 0 %}
+       <div style="margin-bottom: 30px; font-size: 1.1em; border: 2px solid green; padding 10px;">
+           &#10024; Solicitação Aberta com Sucesso! Seu número de protocolo é #{{ osr.idt_ordem_servico }}.
+       </div>
+   {%  else  %}
+       <div style="margin-bottom: 30px; font-size: 1.1em; border: 2px solid red;padding: 10px">
+       &#10060; Erro ao tentar abrir Ordem de Serviço. Tente novamente mais tarde!
+   </div>
+   {%  endif %}
+
+
+   <div class="comprovante-details">
+       <!-- Bloco de Informações Chave -->
+       <div class="detail-group">
+           <label>Número da Solicitação (ID):</label>
+           <p><strong>{{ osr.idt_ordem_servico }}</strong></p>
+       </div>
+
+
+       <div class="detail-group">
+           <label>Data e Hora da Abertura:</label>
+           <!-- Formato da data pode variar dependendo de como o SQLAlchemy mapeou o campo dti_ordem_servico -->
+           <p>{{ osr.dti_ordem_servico.strftime('%d/%m/%Y %H:%M:%S') }}</p>
+       </div>
+
+       <!-- Informações do Solicitante -->
+       <div class="detail-group">
+           <label>Solicitante (Empregado):</label>
+           <!-- Assume que o mapeamento permite acesso a tt_empregado -->
+           <p>{{ osr.tb_empregado.nme_empregado }}</p>
+       </div>
+
+
+       <div class="detail-group">
+           <label>Serviço Solicitado:</label>
+           <p>{{ osr.tb_servico.nme_servico }} - R$ {{ osr.tb_servico.vlr_servico }}</p>
+       </div>
+
+
+       <div class="detail-group">
+           <label>Setor Responsável:</label>
+           <p>
+               {{ osr.tb_servico.tt_setor.nme_setor }} ({{ osr.tb_servico.tt_setor.sgl_setor }})
+           </p>
+       </div>
+
+
+       <!-- Detalhes Adicionais -->
+       <div class="detail-group">
+           <label>Descrição Detalhada:</label>
+           <p class="description-text">{{ osr.dsc_ordem_servico }}</p>
+       </div>
+
+       <!-- Ações do Usuário -->
+       <div class="action-buttons" style="margin-top: 30px;">
+           <a href="/menu_sol" class="btn btn-primary">Retornar ao Menu do Solicitante</a>
+           <!-- Aqui você pode adicionar um botão para Imprimir se necessário -->
+           <button class="btn btn-primary" onclick="window.print()">&#128220 Imprimir Comprovante</button>
+       </div>
+   </div>
+
+
+</section>
+
+
+{% endblock %}
+
+
+<!-- Bloco de Estilo Adicional (para estilizar os detalhes do comprovante) -->
+{% block styles %}
+<style>
+   .comprovante-details {
+       background-color: #f7f7f7;
+       padding: 20px;
+       border-radius: 6px;
+       border: 1px dashed #008080;
+   }
+   .detail-group {
+       padding: 10px 0;
+       border-bottom: 1px solid #eee;
+   }
+   .detail-group label {
+       font-weight: 700;
+       color: #006666;
+       margin-bottom: 2px;
+       font-size: 0.9em;
+   }
+   .detail-group p {
+       margin-top: 0;
+       margin-bottom: 5px;
+       font-size: 1.1em;
+       line-height: 1.4;
+   }
+   .description-text {
+       white-space: pre-wrap; /* Mantém quebras de linha da descrição */
+   }
+   .action-buttons a, .action-buttons button {
+       text-decoration: none;
+       display: inline-block;
+   }
+
+
+</style>
+{% endblock %}
