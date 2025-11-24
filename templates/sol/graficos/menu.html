@@ -1,0 +1,46 @@
+{% extends "sol/base_sol.html" %}
+
+
+{% block content %}
+<main>
+    <section class="form-section">
+        <h2>Painel de Gráficos do Solicitante</h2>
+        <p>Selecione a opção de análise ou exportação desejada:</p>
+
+
+        <div class="menu-item-group"
+             style="margin-bottom: 20px; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+            <h3>&#10036; Hierarquia Setores/Serviços</h3>
+            <p>Visualiza a estrutura hierárquica e a distribuição de serviços por setor.</p>
+            <a href="/sol/graficos/hierarquia" class="btn btn-primary" style="margin-top: 10px;">Acessar Gráfico</a>
+        </div>
+
+        <div class="menu-item-group"
+             style="margin-bottom: 20px; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+            <h3>&#128202; Análise de Valores de Serviços por Setor</h3>
+            <p>Mostra dados mínimos, máximos e médios de valor dos serviços agrupados por setor.</p>
+            <a href="/sol/graficos/analise_valores" class="btn btn-primary" style="margin-top: 10px;">Acessar
+                Gráfico</a>
+        </div>
+
+        <div class="menu-item-group"
+             style="margin-bottom: 20px; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+            <h3>&#128203; Excel com carta de serviços</h3>
+            <p>Exporta os dados da carta de serviços em formato de planilha para análise offline.</p>
+            <a href="/sol/graficos/exportar_excel" class="btn btn-primary" style="margin-top: 10px;">Exportar para
+                Excel</a>
+        </div>
+
+
+        <hr style="margin-top: 30px;">
+
+        <footer>
+            <nav>
+                <a href="/menu_sol">Retornar ao Painel do Solicitante</a>
+            </nav>
+        </footer>
+
+
+    </section>
+</main>
+{% endblock %}

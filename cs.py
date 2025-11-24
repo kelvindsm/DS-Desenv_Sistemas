@@ -7,6 +7,7 @@ from urls.adm.Empregado import bp_empregados
 from urls.adm.Prestador import bp_prestadores
 from urls.adm.Local import bp_locais
 from urls.adm.Tipo_ocorrencia import bp_tpOcorrencias
+from urls.sol.graficos import bp_graficos
 
 from urls.sol.abrir import bp_abrir
 
@@ -21,6 +22,7 @@ app.register_blueprint(bp_prestadores)
 app.register_blueprint(bp_locais)
 app.register_blueprint(bp_tpOcorrencias)
 app.register_blueprint(bp_abrir)
+app.register_blueprint(bp_graficos)
 
 @app.route('/')
 def cs():
